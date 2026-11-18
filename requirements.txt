@@ -1,0 +1,14 @@
+# preprocessing
+pyarrow>=14.0.0
+pandas>=2.0.0
+datasets>=2.18.0
+huggingface_hub>=0.20.0
+tqdm>=4.66.0
+pyahocorasick>=2.0.0
+parsinorm @ git+https://github.com/haraai/ParsiNorm.git
+# uroman            # only needed for preprocess_remove_all.py --transliterate
+# evaluation
+torch
+transformers
+numpy
+scipy
