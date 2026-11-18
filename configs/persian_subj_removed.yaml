@@ -1,0 +1,116 @@
+checkpoints:
+  checkpoint_interval: 500
+  checkpoints_path: checkpoints/persian_subj_removed
+  checkpoints_path_is_shared_file_system: false
+  resume_checkpoint_path: <PATH_TO_ENGLISH_BASE_CHECKPOINT>  # nanotron checkpoint of the English base model
+  save_final_state: true
+  save_initial_state: false #loading from checkpoint
+  load_optimizer: false
+  load_lr_scheduler: false
+  resume_metadata: false # true means we continue counting steps from where we left off (so train steps = previous train steps + current steps), false means we start from 1 again
+data_stages:
+- data:
+    dataset:
+      dataset_folder:
+      - data/subj_removed/tokenized # 27034094 samples per epoch
+      - <PATH_TO_PERSIAN_REPLAY_NANOSET> #4029505 samples per epoch
+      - <PATH_TO_CODE_NANOSET> #81680 samples per epoch
+      tokenizer_name: <PATH_TO_LLAMA_3.3_TOKENIZER>
+      vocab_size: 128256
+      token_size_in_bytes: 4
+      return_positions: true
+      # Tokenized bytes dataset config
+      skip_in_stream: false
+      dataset_max_tokens: null
+      shuffle_files: true
+      use_old_brrr_dataloader: false
+      dataset_weights: [27034094.0, 4029505.0, 81680.0]
+      pad_samples_to_global_batch_size: true
+      drop_last: false
+      dataset_num_samples: [27034094, 4029505, 81680] #6083.1 steps -> 6084 steps with batch size 5120
+    num_loading_workers: 0
+    seed: 42
+  name: stable phase
+  start_training_step: 1
+general:
+  benchmark_csv_path: null
+  consumed_train_samples: null
+  ignore_sanity_checks: true
+  project: factual_transfer
+  run: persian_subj_removed
+  seed: 42
+  step: null
+logging:
+  iteration_step_info_interval: 5
+  log_level: info
+  log_level_replica: info
+model:
+  ddp_bucket_cap_mb: 25
+  dtype: bfloat16
+  init_method:
+    std: 0.041666666666666664
+  make_vocab_size_divisible_by: 1
+  model_config:
+    bos_token_id: 0
+    eos_token_id: 0
+    hidden_act: gelu
+    hidden_size: 1152
+    initializer_range: 0.041666666666666664
+    intermediate_size: 3072
+    is_llama_config: true
+    max_position_embeddings: 2048
+    num_attention_heads: 18
+    num_hidden_layers: 30
+    num_key_value_heads: 6
+    pad_token_id: null
+    pretraining_tp: 1
+    rms_norm_eps: 1.0e-05
+    rope_interleaved: false
+    rope_scaling: null
+    rope_theta: 10000.0
+    tie_word_embeddings: true
+    use_cache: true
+    vocab_size: 128256
+    lm_head_normalization_factor: 2
+optimizer:
+  accumulate_grad_in_fp32: true
+  clip_grad: 1.0
+  learning_rate_scheduler:
+    learning_rate: 0.003
+    lr_decay_starting_step: 4867
+    lr_decay_steps: 1217 #20% of train steps is 1216.8
+    lr_decay_style: linear
+    lr_warmup_steps: 14 #0.2% of train steps is 12.17
+    lr_warmup_style: linear
+    min_decay_lr: 0
+  optimizer_factory:
+    adam_beta1: 0.9
+    adam_beta2: 0.95
+    adam_eps: 1.0e-08
+    name: adamW
+    torch_adam_is_fused: true
+  weight_decay: 0.01
+  zero_stage: 0
+parallelism:
+  dp: 16
+  expert_parallel_size: 1
+  pp: 1
+  pp_engine: 1f1b
+  recompute_layer: false
+  tp: 1
+  tp_linear_async_communication: true
+  tp_mode: REDUCE_SCATTER
+  tp_recompute_allgather: true
+profiler: null
+tokenizer:
+  tokenizer_max_length: null
+  tokenizer_name_or_path: <PATH_TO_LLAMA_3.3_TOKENIZER>
+  tokenizer_revision: null
+tokens:
+  batch_accumulation_per_replica: 80
+  limit_test_batches: 0
+  limit_val_batches: 0
+  micro_batch_size: 4
+  sequence_length: 2048
+  train_steps: 6084
+  val_check_interval: 250
