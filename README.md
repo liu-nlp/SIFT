@@ -1,6 +1,7 @@
-# Cross-Lingual Factual Transfer
+# Probing Factual Knowledge Transfer with Training Data Interventions
 
-Code for the data interventions, training configurations and evaluation used in the paper.
+Code for the data interventions, training configurations and evaluation used in the EMNLP 2026 paper
+[*Probing Factual Knowledge Transfer with Training Data Interventions*](https://aclanthology.org/2026.emnlp-main.2445/).
 
 ## Repository layout
 
@@ -65,6 +66,28 @@ bash scripts/run_eval.sh
 
 ## Citation
 
+If you use this code, please cite:
+
 ```bibtex
-TODO
+@inproceedings{oji-etal-2026-probing,
+    title = "Probing Factual Knowledge Transfer with Training Data Interventions",
+    author = "Oji, Romina  and
+      Braun, Marc  and
+      Bollmann, Marcel  and
+      Kuhlmann, Marco  and
+      Kunz, Jenny",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Junyi Jessy  and
+      Elliott, Desmond",
+    booktitle = "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.emnlp-main.2445/",
+    doi = "10.18653/2026.emnlp-main.2445",
+    pages = "55474--55492",
+    ISBN = "979-8-89176-459-0"
+}
 ```
